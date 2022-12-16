@@ -1,5 +1,11 @@
+.pending-notes-view-container span {
+	display: block;
+	margin: -16px 0 0;
+	padding-bottom: 16px;
+}
+
 .pending-notes-view-container ul{
-	margin: 0;
+	margin: 0 8px;
 	padding: 0 16px;
 }
 
