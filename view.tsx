@@ -60,7 +60,7 @@ export class MainView extends ItemView {
 			while ((outLinks = wikiLinksExpression.exec(note.content)) !== null) {
 				const [_, note] = outLinks.filter(Boolean)
 				if (!mediaExt.some(ext => note.includes(ext))) {
-					links.add(note.replace('|', ''))
+					links.add(note.replace('|', '').trim())
 				}
 			}
 		}
@@ -69,7 +69,14 @@ export class MainView extends ItemView {
 				missingNotes.add(link)
 			}
 		}
-		return Array.from(missingNotes).filter(Boolean).sort()
+		return Array.from(missingNotes)
+			.filter(Boolean)
+			.sort((a,b) => a.toLowerCase() > b.toLowerCase()
+				? 1
+				: a.toLowerCase() < b.toLowerCase()
+					? -1
+					: 0
+			)
 	}
 
 	private async readNote(file: TFile): Promise<Note> {
