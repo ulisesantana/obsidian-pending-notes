@@ -10,7 +10,7 @@ export default class PendingNotesPlugin extends Plugin {
 		);
 
 		// This creates an icon in the left ribbon.
-		this.addRibbonIcon('flask-conical', 'Pending Notes', () => {
+		this.addRibbonIcon('file-clock', 'Pending Notes', () => {
 			this.activateView()
 		});
 
