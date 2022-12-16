@@ -30,7 +30,7 @@ export class MainView extends ItemView {
 		const onCreateNote = this.createNote.bind(this)
 		root.render(
 			<React.StrictMode>
-				<PendingNotesView notes={notes} onCreateNote={onCreateNote} />,
+				<PendingNotesView notes={notes} onCreateNote={onCreateNote} />
 			</React.StrictMode>
 		);
 	}
