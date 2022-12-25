@@ -3,11 +3,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {createRoot} from "react-dom/client";
 import {PendingNotesView} from "./PendingNotesView";
+import {Note, Notes} from "../core/Notes";
 
-interface Note {
-	name: string
-	content: string
-}
+
 
 export const VIEW_TYPE_MAIN = "pending-notes:main";
 
@@ -30,7 +28,10 @@ export class MainView extends ItemView {
 		const onCreateNote = this.createNote.bind(this)
 		root.render(
 			<React.StrictMode>
-				<PendingNotesView notes={notes} onCreateNote={onCreateNote} />
+				<PendingNotesView
+					notes={notes}
+					onCreateNote={onCreateNote}
+				/>
 			</React.StrictMode>
 		);
 	}
@@ -50,33 +51,7 @@ export class MainView extends ItemView {
 
 	private async getPendingNotes(): Promise<string[]> {
 		const notes = await Promise.all(this.app.vault.getMarkdownFiles().map(f => this.readNote(f)))
-		const links = new Set<string>()
-		const vaultNotes = new Set(notes.map(n => n.name))
-		const missingNotes = new Set<string>()
-		const wikiLinksExpression = /\[\[([^\|\]]+\|)?([^\]]+)\]\]/g
-		const mediaExt = ['mp3', 'jpg', 'jpeg', 'png', 'mp4', 'ogg', 'm4a', 'pdf', '#']
-		for (const note of notes) {
-			let outLinks;
-			while ((outLinks = wikiLinksExpression.exec(note.content)) !== null) {
-				const [_, note] = outLinks.filter(Boolean)
-				if (!mediaExt.some(ext => note.includes(ext))) {
-					links.add(note.replace('|', '').trim())
-				}
-			}
-		}
-		for (const link of links) {
-			if (!vaultNotes.has(link)) {
-				missingNotes.add(link)
-			}
-		}
-		return Array.from(missingNotes)
-			.filter(Boolean)
-			.sort((a,b) => a.toLowerCase() > b.toLowerCase()
-				? 1
-				: a.toLowerCase() < b.toLowerCase()
-					? -1
-					: 0
-			)
+		return Notes.getPendingToCreate(notes)
 	}
 
 	private async readNote(file: TFile): Promise<Note> {

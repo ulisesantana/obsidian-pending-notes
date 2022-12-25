@@ -1,5 +1,5 @@
 import {Plugin} from 'obsidian';
-import {MainView, VIEW_TYPE_MAIN} from 'view';
+import {MainView, VIEW_TYPE_MAIN} from 'src/views/MainView';
 
 export default class PendingNotesPlugin extends Plugin {
 
