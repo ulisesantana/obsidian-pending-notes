@@ -16,7 +16,7 @@ export class Notes {
 			}
 		}
 		return Array.from(missingNotes)
-			.filter(Boolean)
+			.filter(n => Boolean(n) && Notes.filterMarkdown(n))
 			.sort(Notes.sortByTitle)
 	}
 
@@ -39,5 +39,10 @@ export class Notes {
 			}
 		}
 		return links;
+	}
+
+	private static filterMarkdown(n: string) {
+		// Test if ends with an extension from 1 to 5 characters long
+		return !/.+\.\w{1,5}/g.test(n);
 	}
 }
