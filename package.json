@@ -1,12 +1,14 @@
 {
 	"name": "obsidian-pending-notes",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "Obsidian plugin for searching links without notes in your vault.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"lint": "eslint . --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+		"tag": "node version-bump.mjs && TAG=$(node -pe \"require('./package.json').version\"); git commit -am \"🔖 $TAG\" && git tag $TAG && git push --tags",
 		"test": "jest --verbose",
 		"test:watch": "npm t -- --watchAll",
 		"test:coverage": "npm t -- --coverage"
@@ -34,6 +36,7 @@
 		"typescript": "4.7.4"
 	},
 	"dependencies": {
+		"eslint": "^8.30.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	}
