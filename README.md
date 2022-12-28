@@ -4,9 +4,11 @@
 This is a plugin for [Obsidian](https://obsidian.md).
 
 Pending Notes aims to collect in one place all the links you have created on the fly while writing, but links to nowhere yet. With this plugin, you can create those notes easily.
+
 ![](docs/preview.gif)
 
 You can use it from right side bar or through the command palette:
+
 ![](docs/command.png)
 
 ## Support 
