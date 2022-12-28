@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-pending-notes",
 	"name": "Pending notes",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"minAppVersion": "0.15.0",
 	"description": "Obsidian plugin for searching links without notes in your vault.",
 	"author": "Ulises Santana <ulisesantana@gmail.com>",
