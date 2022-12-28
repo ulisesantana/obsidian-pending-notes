@@ -1,14 +1,14 @@
 # Obsidian Pending Notes Plugin
+<a href="https://www.buymeacoffee.com/ulisesantana" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 42px !important;width: auto !important;" ></a>
 
 This is a plugin for [Obsidian](https://obsidian.md).
 
-The aim of **Pending Notes** is to find in one place all the links you have created on the fly while writing, but there land to no notes yet.
-![](docs/preview.png)
+Pending Notes aims to collect in one place all the links you have created on the fly while writing, but links to nowhere yet. With this plugin, you can create those notes easily.
+![](docs/preview.gif)
 
 You can use it from right side bar or through the command palette:
 ![](docs/command.png)
 
 ## Support 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="ulisesantana" data-color="#FFDD00" data-emoji="🍕"  data-font="Lato" data-text="Buy me a pizza" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
 
-If you find this plugin useful, you can support me [buying me a pizza](https://www.buymeacoffee.com/ulisesantana).
+If you find this plugin useful, you can support me [buying me a coffee](https://www.buymeacoffee.com/ulisesantana).
