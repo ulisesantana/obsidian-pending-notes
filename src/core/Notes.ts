@@ -31,10 +31,14 @@ export class Notes {
 	private static getOutlinks(notes: Note[]): Set<string> {
 		const links = new Set<string>()
 		const wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
+		const templaterExpression = /<%.*%>/
 		for (const note of notes) {
 			let outLinks;
 			while ((outLinks = wikiLinksExpression.exec(note.content)) !== null) {
-				const note = outLinks.filter(Boolean)[1].split(/[#|]/g)[0]!.trim()
+				const note = outLinks.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
+				if (templaterExpression.test(note)) {
+					continue
+				}
 				links.add(note)
 			}
 		}
