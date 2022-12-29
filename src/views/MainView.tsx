@@ -5,8 +5,6 @@ import {createRoot} from "react-dom/client";
 import {PendingNotesView} from "./PendingNotesView";
 import {Note, Notes} from "../core/Notes";
 
-
-
 export const VIEW_TYPE_MAIN = "pending-notes:main";
 
 export class MainView extends ItemView {
