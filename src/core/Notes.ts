@@ -1,13 +1,13 @@
 export interface Note {
 	name: string
-	content: string
+	content: Promise<string>
 }
 
 type PendingToCreateNote = string
 
 export class Notes {
-	static getPendingToCreate(notes: Note[]): PendingToCreateNote[] {
-		const links = Notes.getOutlinks(notes);
+	static async getPendingToCreate(notes: Note[]): Promise<PendingToCreateNote[]> {
+		const links = await Notes.getOutlinks(notes);
 		const allNotes = new Set(notes.map(n => n.name))
 		const missingNotes = new Set<string>()
 		for (const link of links) {
@@ -28,18 +28,19 @@ export class Notes {
 				: 0;
 	}
 
-	private static getOutlinks(notes: Note[]): Set<string> {
+	private static async getOutlinks(notes: Note[]): Promise<Set<string>> {
 		const links = new Set<string>()
 		const wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
 		const templaterExpression = /<%.*%>/
 		for (const note of notes) {
 			let outLinks;
-			while ((outLinks = wikiLinksExpression.exec(note.content)) !== null) {
-				const note = outLinks.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
-				if (templaterExpression.test(note)) {
+			const content = await note.content
+			while ((outLinks = wikiLinksExpression.exec(content)) !== null) {
+				const title = outLinks.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
+				if (templaterExpression.test(title)) {
 					continue
 				}
-				links.add(note)
+				links.add(title)
 			}
 		}
 		return links;

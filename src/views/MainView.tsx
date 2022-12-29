@@ -48,14 +48,14 @@ export class MainView extends ItemView {
 	}
 
 	private async getPendingNotes(): Promise<string[]> {
-		const notes = await Promise.all(this.app.vault.getMarkdownFiles().map(f => this.readNote(f)))
+		const notes = this.app.vault.getMarkdownFiles().map(f => this.readNote(f))
 		return Notes.getPendingToCreate(notes)
 	}
 
-	private async readNote(file: TFile): Promise<Note> {
+	private readNote(file: TFile): Note {
 		return {
 			name: file.basename,
-			content: await this.app.vault.cachedRead(file)
+			content: this.app.vault.cachedRead(file)
 		}
 	}
 }
