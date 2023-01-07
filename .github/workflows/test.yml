@@ -21,4 +21,4 @@ jobs:
         run: npm test
 
       - name: Test deploy 
-        run: npm test:deploy
+        run: npm run test:deploy
