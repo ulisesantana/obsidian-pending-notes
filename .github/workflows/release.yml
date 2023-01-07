@@ -19,11 +19,16 @@ jobs:
         with:
           node-version: "16.x"
 
+      - name: Install
+        run: npm install
+
+      - name: Test
+        run: npm run test:all
+
       - name: Build
         id: build
         run: |
-          npm install
-          npm run build
+          npm run deploy
           mkdir ${{ env.PLUGIN_NAME }}
           cp main.js manifest.json styles.css ${{ env.PLUGIN_NAME }}
           zip -r ${{ env.PLUGIN_NAME }}.zip ${{ env.PLUGIN_NAME }}
