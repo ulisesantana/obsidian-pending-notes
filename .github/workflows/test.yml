@@ -18,7 +18,7 @@ jobs:
         run: npm install
 
       - name: Test code 
-        run: node ./test-deploy.mjs
+        run: npm test
 
       - name: Test deploy 
-        run: node ./test-deploy.mjs
+        run: npm test:deploy
