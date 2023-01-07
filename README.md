@@ -5,11 +5,23 @@ This is a plugin for [Obsidian](https://obsidian.md).
 
 Pending Notes aims to collect in one place all the links you have created on the fly while writing, but links to nowhere yet. With this plugin, you can create those notes easily.
 
-![](docs/preview.gif)
+![Show who the plugins can be used](docs/preview.gif)
 
 You can use it from right side bar or through the command palette:
 
-![](docs/command.png)
+![Command preview](docs/command.png)
+
+## How to install
+
+This plugin is currently pending to be added to the Obsidian Community Plugins. Meanwhile you can install it manually by going to `.obsidian/plugins/` and run:
+
+```shell
+$ git clone https://github.com/ulisesantana/obsidian-pending-notes.git
+$ cd obsidian-pending-notes
+$ npm run deploy
+```
+
+You will need installed git and [Node.js](https://nodejs.org/en/) at LTS version.
 
 ## Support 
 
