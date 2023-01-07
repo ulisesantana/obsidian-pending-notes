@@ -1,12 +1,10 @@
-.pending-notes-view-container span {
-	display: block;
-	margin: -16px 0 0;
-	padding-bottom: 16px;
+.pending-notes-view-container h1 {
+margin-bottom: 4px;
 }
 
 .pending-notes-view-container ul {
 	margin: 0 8px;
-	padding: 0 16px;
+	padding: 16px 0 32px;
 }
 
 .pending-notes-view-container ul li {
