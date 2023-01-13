@@ -1,15 +1,15 @@
 import * as React from "react";
-import {MouseEventHandler, useState} from "react";
+import {FC, MouseEventHandler, useState} from "react";
 
 interface Props {
 	notes: string[]
-	onCreateNote: (note: string) => Promise<string[]>
+	onCreateNote: (note: string, event: MouseEvent) => Promise<string[]>
 }
 
-export const PendingNotesView: React.FC<Props> = ({notes, onCreateNote}) => {
+export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
 	const [items, setItems] = useState(notes)
-	const generateOnClick: (note: string) => MouseEventHandler<HTMLAnchorElement> = note => () => {
-		onCreateNote(note).then(setItems)
+	const generateOnClick: (n: string) => MouseEventHandler<HTMLAnchorElement> = (note: string) => (event) => {
+		onCreateNote(note, event.nativeEvent).then(setItems)
 	}
 	return (
 		<div className="pending-notes-view-container">

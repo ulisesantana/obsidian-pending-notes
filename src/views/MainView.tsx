@@ -1,4 +1,4 @@
-import {ItemView, TFile, WorkspaceLeaf} from "obsidian";
+import {ItemView, Keymap, TFile, UserEvent, WorkspaceLeaf} from "obsidian";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {createRoot} from "react-dom/client";
@@ -38,12 +38,15 @@ export class MainView extends ItemView {
 		ReactDOM.unmountComponentAtNode(this.containerEl.children[1]);
 	}
 
-	private createNote(note: string): Promise<string[]> {
+	private createNote(note: string, event: UserEvent): Promise<string[]> {
 		const noteFile = note + '.md'
 		const defaultFolder = this.app.fileManager.getNewFileParent("")
 		const pathDivider = defaultFolder.parent.path.includes('\\')? '\\' : '/'
 		return this.app.vault.create(defaultFolder.path + pathDivider + noteFile,'')
-			.then(() => this.app.workspace.openLinkText(noteFile, defaultFolder.path))
+			.then(() => {
+				const mod = Keymap.isModEvent(event);
+				this.app.workspace.openLinkText(noteFile, defaultFolder.path, mod)
+			})
 			.then(() => this.getPendingNotes())
 	}
 
