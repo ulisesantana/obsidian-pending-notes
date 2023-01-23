@@ -7,20 +7,20 @@ Pending Notes aims to collect in one place all the links you have created on the
 
 ![Show who the plugins can be used](docs/preview.gif)
 
-You can use it from right side bar or through the command palette:
+You can use it from left sidebar or through the command palette:
 
 ![Command preview](docs/command.png)
 
 ## How to install
 
-This plugin is currently pending to be added to the Obsidian Community Plugins. Meanwhile you can install it manually in two ways: 
+This plugin is an Obsidian Community Plugins, so you can **install it right from your Obsidian settings**. However, if you want you can install it manually in two ways: 
 
 ### Manual install: download release 
 Go to [the latest release](https://github.com/ulisesantana/obsidian-pending-notes/releases/latest) and download the zip file that looks like `obsidian-pending-notes-X.X.X.zip`.
 
-Once download is finished you can unzip it inside your vault on `.obsidian/plugins/`. If you are not doing this through your terminal or console, you may need to *hidden files* on your file browser.
+Once download is finished you can unzip it inside your vault on `.obsidian/plugins/`. If you are not doing this through your terminal or console, you may need to enable your file browser to show *hidden files*.
 
-After that you can activate it on your Obsdian settings. If the plugin is not showed try to restart Obsdian.
+After that you can activate it on your Obsidian settings. If the plugin is not showed try to restart Obsidian.
 
 ### Manual install: build plugin
 Go to `.obsidian/plugins/` and run:
@@ -31,7 +31,7 @@ $ cd obsidian-pending-notes
 $ npm run deploy
 ```
 
-After that you can activate it on your Obsdian settings. If the plugin is not showed try to restart Obsdian.
+After that you can activate it on your Obsidian settings. If the plugin is not showed try to restart Obsidian.
 
 **Note**: For build the plugin you will need installed git and [Node.js](https://nodejs.org/en/) at LTS version.
 
