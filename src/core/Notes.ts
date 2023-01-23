@@ -32,11 +32,9 @@ export class Notes {
 		const links = new Set<string>()
 		const wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
 		const templaterExpression = /<%.*%>/
-		for (const note of notes) {
-			let outLinks;
-			const content = await note.content
-			while ((outLinks = wikiLinksExpression.exec(content)) !== null) {
-				const title = outLinks.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
+		for await (const note of Notes.cleanNotes(notes)) {
+			for (const outLink of note.matchAll(wikiLinksExpression)) {
+				const title = outLink.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
 				if (templaterExpression.test(title)) {
 					continue
 				}
@@ -44,6 +42,19 @@ export class Notes {
 			}
 		}
 		return links;
+	}
+
+	private static async* cleanNotes(notes: Note[]): AsyncGenerator<string> {
+		for (const note of notes) {
+			const content = await note.content
+			yield Notes.removeCodeBlocks(content)
+		}
+	}
+
+	private static removeCodeBlocks(noteContent: string): string {
+		const codeBlocksExpression = /`.+`|```.+```/gms
+		const codeBlocks = Array.from(noteContent.matchAll(codeBlocksExpression)).flatMap(([x]) => x)
+		return codeBlocks.reduce((content, codeBlock) => content.replace(codeBlock, ''), noteContent)
 	}
 
 	private static filterMarkdown(n: string) {
