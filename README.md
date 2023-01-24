@@ -18,7 +18,7 @@ You can use it from left sidebar or through the command palette:
 
 ## How to install
 
-This plugin is an Obsidian Community Plugins, so you can **install it right from your Obsidian settings**. However, if you want you can install it manually in two ways: 
+This plugin is an Obsidian Community Plugin, so you can **install it right from your Obsidian settings**. However, if you want you can install it manually in two ways: 
 
 ### Manual install: download release 
 Go to [the latest release](https://github.com/ulisesantana/obsidian-pending-notes/releases/latest) and download the zip file that looks like `obsidian-pending-notes-X.X.X.zip`.
