@@ -1,10 +1,8 @@
 # Obsidian Pending Notes Plugin
+![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-pending-notes%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
 [![GitHub release](https://img.shields.io/github/release/ulisesantana/obsidian-pending-notes.svg)](https://GitHub.com/ulisesantana/obsidian-pending-notes/releases/)
 [![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 [![codecov](https://codecov.io/github/ulisesantana/obsidian-pending-notes/branch/master/graph/badge.svg?token=XXwfgoPhoY)](https://codecov.io/github/ulisesantana/obsidian-pending-notes)
-![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-pending-notes%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
-
-
 
 <a href="https://www.buymeacoffee.com/ulisesantana" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 42px !important;width: auto !important;" ></a>
 
