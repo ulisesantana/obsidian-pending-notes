@@ -8,10 +8,10 @@ type PendingToCreateNote = string
 export class Notes {
 	static async getPendingToCreate(notes: Note[]): Promise<PendingToCreateNote[]> {
 		const links = await Notes.getOutlinks(notes);
-		const allNotes = new Set(notes.map(n => n.name))
+		const allNotes = new Set(notes.map(n => n.name.toLowerCase()))
 		const missingNotes = new Set<string>()
 		for (const link of links) {
-			if (!allNotes.has(link)) {
+			if (!allNotes.has(link.toLowerCase())) {
 				missingNotes.add(link)
 			}
 		}
