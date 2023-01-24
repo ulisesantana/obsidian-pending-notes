@@ -22,4 +22,4 @@ if [[ -r $VOLTA_HOME ]]; then
 fi
 ```
 
-This is `inline`.
+This is [[inline code]] `[[ -i $VOLTA_HOME ]]`.

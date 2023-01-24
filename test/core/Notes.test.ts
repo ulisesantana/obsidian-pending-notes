@@ -67,6 +67,7 @@ describe('Notes should', () => {
 			])
 			expect(pending).toEqual([
 				'code blocks',
+				'inline code'
 			])
 		});
 	});

@@ -52,9 +52,15 @@ export class Notes {
 	}
 
 	private static removeCodeBlocks(noteContent: string): string {
-		const codeBlocksExpression = /`.+`|```.+```/gms
-		const codeBlocks = Array.from(noteContent.matchAll(codeBlocksExpression)).flatMap(([x]) => x)
+		const codeBlocks = [
+			...Notes.getMatches(noteContent, /```.+```/gms),
+			...Notes.getMatches(noteContent, /`.+`/g)
+		]
 		return codeBlocks.reduce((content, codeBlock) => content.replace(codeBlock, ''), noteContent)
+	}
+
+	private static getMatches(note: string, expression: RegExp) {
+		return Array.from(note.matchAll(expression)).flatMap(([x]) => x);
 	}
 
 	private static filterMarkdown(n: string) {
