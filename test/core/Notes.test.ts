@@ -70,5 +70,21 @@ describe('Notes should', () => {
 				'inline code'
 			])
 		});
+
+		it('ignoring cases', async () => {
+			const pending = await Notes.getPendingToCreate([
+				{
+					"name": "Test",
+					"content": Promise.resolve('This should recognize one [[pending note]]. Because [[Pending note]] title should be case-insensitive.')
+				},
+				{
+					"name": "Pending note",
+					"content": Promise.resolve('Is note that is [[Outlinks|linked]], but not created yet. ')
+				},
+			])
+			expect(pending).toEqual([
+				'Outlinks'
+			])
+		});
 	});
 });
