@@ -22,3 +22,6 @@ jobs:
 
       - name: Test deploy 
         run: npm run test:deploy
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.1

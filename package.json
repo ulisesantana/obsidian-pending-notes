@@ -10,9 +10,8 @@
 		"lint": "eslint . --ext .ts",
     	"lint:fix": "npm run lint -- --fix",
 		"tag": "node version-bump.mjs && TAG=$(node -pe \"require('./package.json').version\"); git commit -am \"🔖 $TAG\" && git tag $TAG && git push --tags",
-		"test": "jest --verbose",
+		"test": "jest --verbose --coverage",
 		"test:all": "npm t && npm run test:deploy",
-		"test:coverage": "npm t -- --coverage",
 		"test:deploy": "node ./test/scripts/test-deploy.mjs",
 		"test:watch": "npm t -- --watchAll"
 	},
