@@ -29,19 +29,25 @@ export class Notes {
 	}
 
 	private static async getOutlinks(notes: Note[]): Promise<Set<string>> {
-		const links = new Set<string>()
+		const links = []
+		for await (const note of Notes.cleanNotes(notes)) {
+			links.push(...Notes.extractNoteOutlinks(note))
+		}
+		return new Set(links);
+	}
+
+	private static extractNoteOutlinks(note: string): string[] {
 		const wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
 		const templaterExpression = /<%.*%>/
-		for await (const note of Notes.cleanNotes(notes)) {
-			for (const outLink of note.matchAll(wikiLinksExpression)) {
-				const title = outLink.filter(Boolean)[1].split(/[#|]/g)[0]?.trim()
+		return Array.from(note.matchAll(wikiLinksExpression))
+			.flatMap(([_, x]) => x)
+			.reduce<string[]>(function reduceNoteTitles(outlinks, outlink) {
+				const title = outlink.split(/[#|]/g)[0]?.trim()
 				if (templaterExpression.test(title)) {
-					continue
+					return outlinks
 				}
-				links.add(title)
-			}
-		}
-		return links;
+				return outlinks.concat(title)
+			}, [])
 	}
 
 	private static async* cleanNotes(notes: Note[]): AsyncGenerator<string> {
@@ -59,7 +65,7 @@ export class Notes {
 		return codeBlocks.reduce((content, codeBlock) => content.replace(codeBlock, ''), noteContent)
 	}
 
-	private static getMatches(note: string, expression: RegExp) {
+	private static getMatches(note: string, expression: RegExp): string[] {
 		return Array.from(note.matchAll(expression)).flatMap(([x]) => x);
 	}
 
