@@ -41,7 +41,7 @@ export class MainView extends ItemView {
 	private createNote(note: string, event: UserEvent): Promise<string[]> {
 		const noteFile = note + '.md'
 		const defaultFolder = this.app.fileManager.getNewFileParent("")
-		const pathDivider = defaultFolder.parent.path.includes('\\')? '\\' : '/'
+		const pathDivider = defaultFolder.path.includes('\\')? '\\' : '/'
 		return this.app.vault.create(defaultFolder.path + pathDivider + noteFile,'')
 			.then(() => {
 				const mod = Keymap.isModEvent(event);
