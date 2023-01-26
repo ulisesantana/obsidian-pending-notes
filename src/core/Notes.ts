@@ -3,37 +3,56 @@ export interface Note {
 	content: Promise<string>
 }
 
-type PendingToCreateNote = string
+export type NotePendingToBeCreated = {
+	title: string,
+	timesLinked: number
+}
 
 export class Notes {
-	static async getPendingToCreate(notes: Note[]): Promise<PendingToCreateNote[]> {
+	static async getPendingToCreate(notes: Note[]): Promise<NotePendingToBeCreated[]> {
 		const links = await Notes.getOutlinks(notes);
 		const allNotes = new Set(notes.map(n => n.name.toLowerCase()))
-		const missingNotes = new Set<string>()
+		const missingNotes = {} as Record<string, number>
 		for (const link of links) {
 			if (!allNotes.has(link.toLowerCase())) {
-				missingNotes.add(link)
+				missingNotes[link] = missingNotes[link] !== undefined
+					? missingNotes[link] + 1
+					: 1
 			}
 		}
-		return Array.from(missingNotes)
-			.filter(n => Boolean(n) && Notes.filterMarkdown(n))
+		return Object.entries(missingNotes)
+			.reduce<NotePendingToBeCreated[]>((notes, [title, timesLinked]) => {
+				if (Boolean(title) && Notes.hasFileExtension(title)) {
+					return notes.concat({title, timesLinked})
+				}
+				return notes
+			}, [])
 			.sort(Notes.sortByTitle)
+			.sort(Notes.sortByTimesLinked)
 	}
 
-	private static sortByTitle(a: string, b: string) {
-		return a.toLowerCase() > b.toLowerCase()
+	private static sortByTimesLinked(a: NotePendingToBeCreated, b: NotePendingToBeCreated) {
+		return a.timesLinked < b.timesLinked
 			? 1
-			: a.toLowerCase() < b.toLowerCase()
+			: a.timesLinked > b.timesLinked
 				? -1
 				: 0;
 	}
 
-	private static async getOutlinks(notes: Note[]): Promise<Set<string>> {
+	private static sortByTitle(a: NotePendingToBeCreated, b: NotePendingToBeCreated) {
+		return a.title.toLowerCase() > b.title.toLowerCase()
+			? 1
+			: a.title.toLowerCase() < b.title.toLowerCase()
+				? -1
+				: 0;
+	}
+
+	private static async getOutlinks(notes: Note[]): Promise<string[]> {
 		const links = []
 		for await (const note of Notes.cleanNotes(notes)) {
 			links.push(...Notes.extractNoteOutlinks(note))
 		}
-		return new Set(links);
+		return links;
 	}
 
 	private static extractNoteOutlinks(note: string): string[] {
@@ -69,7 +88,7 @@ export class Notes {
 		return Array.from(note.matchAll(expression)).flatMap(([x]) => x);
 	}
 
-	private static filterMarkdown(n: string) {
+	private static hasFileExtension(n: string) {
 		// Test if ends with an extension from 1 to 5 characters long
 		return !/.+\.\w{1,5}/g.test(n);
 	}

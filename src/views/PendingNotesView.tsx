@@ -1,9 +1,10 @@
 import * as React from "react";
 import {FC, MouseEventHandler, useState} from "react";
+import {NotePendingToBeCreated} from "../core/Notes";
 
 interface Props {
-	notes: string[]
-	onCreateNote: (note: string, event: MouseEvent) => Promise<string[]>
+	notes: NotePendingToBeCreated[]
+	onCreateNote: (note: string, event: MouseEvent) => Promise<NotePendingToBeCreated[]>
 }
 
 export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
@@ -14,18 +15,18 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
 	return (
 		<div className="pending-notes-view-container">
 			<h1>Pending notes</h1>
-			<span><strong>{items.length}</strong> notes linked, but not created yet.</span>
+			<span><strong>{items.length}</strong> notes linked, but not created yet. Times the note is linked is shown in parentheses.</span>
 			<ul>
-				{items.map(n => (
-					<li key={n}>
+				{items.map(({title, timesLinked}) => (
+					<li key={title}>
 						<a
-							data-href={n}
-							href={n}
-							onClick={generateOnClick(n)}
+							data-href={title}
+							href={title}
+							onClick={generateOnClick(title)}
 							className="internal-link is-unresolved"
 							target="_blank"
 						>
-							{n}
+							({timesLinked}) {title}
 						</a>
 					</li>
 				))}
