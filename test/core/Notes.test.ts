@@ -3,7 +3,7 @@ import * as fs from "fs/promises";
 
 describe('Notes should', () => {
 	describe('extract notes pending to be created', () => {
-		it('successfully', async () => {
+		it('sort by times linked and then by title', async () => {
 			const pending = await Notes.getPendingToCreate([
 				{
 					"name": "Tiempo y Espacio",
@@ -11,13 +11,22 @@ describe('Notes should', () => {
 				},
 				{
 					"name": "Actitud",
-					"content": Promise.resolve("Esta nota está creada, pero pendiente de ser rellenada.")
+					"content": Promise.resolve("Esta nota está creada, pero pendiente de ser rellenada. Hay que pararse a [[Pensar]]")
 				}
 			])
 			expect(pending).toEqual([
-				'Charles Bukowski',
-				'Pensar',
-				'Tiempo'
+				{
+					"timesLinked": 2,
+					"title": "Pensar"
+				},
+				{
+					"timesLinked": 1,
+					"title": "Charles Bukowski"
+				},
+				{
+					"timesLinked": 1,
+					"title": "Tiempo"
+				}
 			])
 		});
 
@@ -29,8 +38,14 @@ describe('Notes should', () => {
 				},
 			])
 			expect(pending).toEqual([
-				'Concept',
-				'Ideaverse'
+				{
+					"timesLinked": 1,
+					"title": "Concept"
+				},
+				{
+					"timesLinked": 1,
+					"title": "Ideaverse"
+				}
 			])
 		});
 
@@ -42,7 +57,10 @@ describe('Notes should', () => {
 				},
 			])
 			expect(pending).toEqual([
-				'Charles Bukowski',
+				{
+					"timesLinked": 1,
+					"title": "Charles Bukowski"
+				}
 			])
 		});
 
@@ -54,7 +72,10 @@ describe('Notes should', () => {
 				},
 			])
 			expect(pending).toEqual([
-				'Chocolate',
+				{
+					"timesLinked": 1,
+					"title": "Chocolate"
+				}
 			])
 		});
 
@@ -66,8 +87,14 @@ describe('Notes should', () => {
 				},
 			])
 			expect(pending).toEqual([
-				'code blocks',
-				'inline code'
+				{
+					"timesLinked": 1,
+					"title": "code blocks"
+				},
+				{
+					"timesLinked": 1,
+					"title": "inline code"
+				}
 			])
 		});
 
@@ -83,7 +110,10 @@ describe('Notes should', () => {
 				},
 			])
 			expect(pending).toEqual([
-				'Outlinks'
+				{
+					"timesLinked": 1,
+					"title": "Outlinks"
+				}
 			])
 		});
 	});
