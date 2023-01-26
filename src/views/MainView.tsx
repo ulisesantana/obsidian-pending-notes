@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {createRoot} from "react-dom/client";
 import {PendingNotesView} from "./PendingNotesView";
-import {Note, Notes} from "../core/Notes";
+import {Note, NotePendingToBeCreated, Notes} from "../core/Notes";
 
 export const VIEW_TYPE_MAIN = "pending-notes:main";
 
@@ -38,7 +38,7 @@ export class MainView extends ItemView {
 		ReactDOM.unmountComponentAtNode(this.containerEl.children[1]);
 	}
 
-	private createNote(note: string, event: UserEvent): Promise<string[]> {
+	private createNote(note: string, event: UserEvent): Promise<NotePendingToBeCreated[]> {
 		const noteFile = note + '.md'
 		const defaultFolder = this.app.fileManager.getNewFileParent("")
 		const pathDivider = defaultFolder.path.includes('\\') ? '\\' : '/'
@@ -50,7 +50,7 @@ export class MainView extends ItemView {
 			.then(() => this.getPendingNotes())
 	}
 
-	private async getPendingNotes(): Promise<string[]> {
+	private async getPendingNotes(): Promise<NotePendingToBeCreated[]> {
 		const notes = this.app.vault.getMarkdownFiles().map(f => this.readNote(f))
 		return Notes.getPendingToCreate(notes)
 	}
