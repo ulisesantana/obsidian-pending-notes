@@ -15,7 +15,7 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
 	return (
 		<div className="pending-notes-view-container">
 			<h1>Pending notes</h1>
-			<span><strong>{items.length}</strong> notes linked, but not created yet.</span>
+			<span><strong>{items.length}</strong> notes linked, but not created yet. Times the note is linked is shown in parentheses.</span>
 			<ul>
 				{items.map(({title, timesLinked}) => (
 					<li key={title}>
