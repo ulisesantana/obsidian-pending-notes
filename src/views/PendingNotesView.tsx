@@ -5,12 +5,16 @@ import {NotePendingToBeCreated} from "../core/Notes";
 interface Props {
 	notes: NotePendingToBeCreated[]
 	onCreateNote: (note: string, event: MouseEvent) => Promise<NotePendingToBeCreated[]>
+	onSearchNote: (title: string) => Promise<void>
 }
 
-export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
+export const PendingNotesView: FC<Props> = ({notes, onCreateNote, onSearchNote}) => {
 	const [items, setItems] = useState(notes)
 	const generateOnClick: (n: string) => MouseEventHandler<HTMLAnchorElement> = (note: string) => (event) => {
 		onCreateNote(note, event.nativeEvent).then(setItems)
+	}
+	const generateOnSearch: (t: string) => MouseEventHandler<HTMLButtonElement> = (title: string) => (event) => {
+		onSearchNote(title).then()
 	}
 	return (
 		<div className="pending-notes-view-container">
@@ -19,6 +23,7 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
 			<ul>
 				{items.map(({title, timesLinked}) => (
 					<li key={title}>
+						<button onClick={generateOnSearch(title)}>🔍</button>
 						<a
 							data-href={title}
 							href={title}
@@ -26,8 +31,11 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote}) => {
 							className="internal-link is-unresolved"
 							target="_blank"
 						>
-							({timesLinked}) {title}
+							<button>
+								➕
+							</button>
 						</a>
+						<strong><em>({timesLinked})</em> {title}</strong>
 					</li>
 				))}
 			</ul>

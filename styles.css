@@ -3,11 +3,30 @@
 }
 
 .pending-notes-view-container ul {
-	margin: 0 8px;
-	padding: 16px 16px 32px;
+	list-style: none;
+	margin: 0;
+	padding: 8px 0 32px;
 }
 
 .pending-notes-view-container ul li {
+	align-items: center;
+	display: flex;
+	gap: 8px;
 	margin: 0;
 	padding: 4px;
 }
+
+
+.pending-notes-view-container ul li button,
+.pending-notes-view-container ul li strong {
+	display: block;
+}
+
+.pending-notes-view-container ul li a {
+	text-decoration: none;
+}
+
+.pending-notes-view-container ul li button {
+	padding: 0 8px;
+}
+

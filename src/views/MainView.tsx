@@ -24,11 +24,13 @@ export class MainView extends ItemView {
 		const root = createRoot(this.containerEl.children[1]);
 		const notes = await this.getPendingNotes()
 		const onCreateNote = this.createNote.bind(this)
+		const onSearchNote = this.searchNotes.bind(this)
 		root.render(
 			<React.StrictMode>
 				<PendingNotesView
 					notes={notes}
 					onCreateNote={onCreateNote}
+					onSearchNote={onSearchNote}
 				/>
 			</React.StrictMode>
 		);
@@ -37,6 +39,20 @@ export class MainView extends ItemView {
 	async onClose() {
 		ReactDOM.unmountComponentAtNode(this.containerEl.children[1]);
 	}
+
+	private async searchNotes(title: string) {
+		// https://forum.obsidian.md/t/api-endpoint-for-searching-file-content/11482/6
+
+		// Perform the search
+		// @ts-ignore
+		app.internalPlugins.plugins['global-search'].instance.openGlobalSearch(`"${title}"`)
+		const searchLeaf = app.workspace.getLeavesOfType('search')[0]
+		const search = await searchLeaf.open(searchLeaf.view)
+		await new Promise(resolve => setTimeout(() => {
+			// @ts-ignore
+			resolve(search.dom.resultDomLookup)
+		}, 300)) // the delay here was specified in 'obsidian-text-expand' plugin; I assume they had a reason
+	} 
 
 	private createNote(note: string, event: UserEvent): Promise<NotePendingToBeCreated[]> {
 		const noteFile = note + '.md'
