@@ -38,3 +38,11 @@
 }
 
 
+.pending-notes-view-container .item {
+	align-items: center;
+	display: flex;
+	gap: 4px;
+}
+
+
+

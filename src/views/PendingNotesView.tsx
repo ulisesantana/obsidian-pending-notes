@@ -42,7 +42,10 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote, onSearchNote, 
 								➕
 							</button>
 						</a>
-						<strong><em>({timesLinked})</em> {title}</strong>
+						<span className="item">
+							<em>({timesLinked})</em> 
+							<strong>{title}</strong>
+						</span>
 					</li>
 				))}
 			</ul>
