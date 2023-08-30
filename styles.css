@@ -1,5 +1,5 @@
 .pending-notes-view-container h1 {
-	margin-bottom: 4px;
+	margin: 0;
 }
 
 .pending-notes-view-container ul {
@@ -17,7 +17,7 @@
 }
 
 
-.pending-notes-view-container ul li button,
+.pending-notes-view-container button,
 .pending-notes-view-container ul li strong {
 	display: block;
 }
@@ -26,7 +26,15 @@
 	text-decoration: none;
 }
 
-.pending-notes-view-container ul li button {
+.pending-notes-view-container button {
 	padding: 0 8px;
 }
+
+.pending-notes-view-container .title {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+
 
