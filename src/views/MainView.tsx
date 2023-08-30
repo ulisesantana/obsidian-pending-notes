@@ -25,12 +25,15 @@ export class MainView extends ItemView {
 		const notes = await this.getPendingNotes()
 		const onCreateNote = this.createNote.bind(this)
 		const onSearchNote = this.searchNotes.bind(this)
+		const onRefreshNotes = this.getPendingNotes.bind(this)
+		
 		root.render(
 			<React.StrictMode>
 				<PendingNotesView
 					notes={notes}
 					onCreateNote={onCreateNote}
 					onSearchNote={onSearchNote}
+					onRefreshNotes={onRefreshNotes}
 				/>
 			</React.StrictMode>
 		);
