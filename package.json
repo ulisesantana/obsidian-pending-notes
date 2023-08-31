@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-pending-notes",
-	"version": "0.7.2",
+	"version": "0.7.3",
 	"description": "Obsidian plugin for searching links without notes in your vault.",
 	"main": "main.js",
 	"scripts": {
