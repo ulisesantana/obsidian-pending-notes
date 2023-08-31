@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const PendingNotesView: FC<Props> = ({notes, onCreateNote, onSearchNote, onRefreshNotes}) => {
+	const [isLoading, setIsLoading] = useState(false)
 	const [items, setItems] = useState(notes)
 	const generateOnClick: (n: string) => MouseEventHandler<HTMLAnchorElement> = (note: string) => (event) => {
 		onCreateNote(note, event.nativeEvent).then(setItems)
@@ -18,13 +19,21 @@ export const PendingNotesView: FC<Props> = ({notes, onCreateNote, onSearchNote, 
 		onSearchNote(title).then()
 	}
 	const refreshNotes = () => {
-		onRefreshNotes().then(setItems)
+		setIsLoading(true)
+		onRefreshNotes().then((notes) => {
+			setTimeout(() => {
+				setIsLoading(false)
+				setItems(notes)
+			}, 1000)
+		})
 	}
 	return (
 		<div className="pending-notes-view-container">
 			<div className="title">
 				<h1>Pending notes</h1>
-				<button onClick={refreshNotes}>🔄</button>
+				<button onClick={refreshNotes}>
+					{isLoading ? <div className="dots"></div> : "🔄"}
+				</button>
 			</div>
 			<span><strong>{items.length}</strong> notes linked, but not created yet. Times the note is linked is shown in parentheses.</span>
 			<ul>

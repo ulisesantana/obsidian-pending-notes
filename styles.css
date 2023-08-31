@@ -45,4 +45,97 @@
 }
 
 
+.dots {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	font-size: 10px;
+	line-height: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+ }
+ 
+ .dots:after {
+	position: absolute;
+	content: "";
+	color: white;
+	-webkit-animation: display-dots steps(1, end) 1s infinite;
+	-moz-animation: display-dots steps(1, end) 1s infinite;
+	-o-animation: display-dots steps(1, end) 1s infinite;
+	animation: display-dots steps(1, end) 1s infinite;
+ }
+ 
+ @-webkit-keyframes display-dots {
+	0% {
+	 content: "";
+	}
+	25% {
+		content: "\2022\00A0\2022\00A0\2022";
+	}
+	50% {
+		content: "\2022\00A0\2022";
+	}
+	75% {
+		content: "\2022";
+	}
+	100% {
+	 content: "";
+	}
+ }
+ @-moz-keyframes display-dots {
+	0% {
+	 content: "";
+	}
+	25% {
+	 content: "\2022";
+	}
+	50% {
+	 content: "\2022\00A0\2022";
+	}
+	75% {
+	 content: "\2022\00A0\2022\00A0\2022";
+	}
+	100% {
+	 content: "";
+	}
+ }
+ @-o-keyframes display-dots {
+	0% {
+	 content: "";
+	}
+	25% {
+	 content: "\2022";
+	}
+	50% {
+	 content: "\2022\00A0\2022";
+	}
+	75% {
+	 content: "\2022\00A0\2022\00A0\2022";
+	}
+	100% {
+	 content: "";
+	}
+ }
+ @keyframes display-dots {
+	0% {
+	 content: "";
+	}
+	25% {
+	 content: "\2022";
+	}
+	50% {
+	 content: "\2022\00A0\2022";
+	}
+	75% {
+	 content: "\2022\00A0\2022\00A0\2022";
+	}
+	100% {
+	 content: "";
+	}
+ }
+ 
+
+
 
