@@ -26,7 +26,7 @@ export class MainView extends ItemView {
 		const onCreateNote = this.createNote.bind(this)
 		const onSearchNote = this.searchNotes.bind(this)
 		const onRefreshNotes = this.getPendingNotes.bind(this)
-		
+
 		root.render(
 			<React.StrictMode>
 				<PendingNotesView
@@ -55,7 +55,7 @@ export class MainView extends ItemView {
 			// @ts-ignore
 			resolve(search.dom.resultDomLookup)
 		}, 300)) // the delay here was specified in 'obsidian-text-expand' plugin; I assume they had a reason
-	} 
+	}
 
 	private createNote(note: string, event: UserEvent): Promise<NotePendingToBeCreated[]> {
 		const noteFile = note + '.md'
