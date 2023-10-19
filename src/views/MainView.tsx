@@ -77,7 +77,9 @@ export class MainView extends ItemView {
 	private readNote(file: TFile): Note {
 		return {
 			name: file.basename,
-			content: this.app.vault.cachedRead(file)
+			content: this.app.vault.cachedRead(file),
+			path: file.path,
+			extension: file.extension
 		}
 	}
 }
