@@ -15,7 +15,7 @@ export interface NotePendingToBeCreated {
 }
 
 export class Notes {
-	private static filePathExpression = /^[\p{L}\p{N}_\p{Pd}\p{Emoji} ]+(\/[\p{L}\p{N}_\p{Pd}\p{Emoji} ]+)*(\.[\p{L}\p{N}_\p{Pd}]+)?$/u
+	private static filePathExpression = /^[\p{L}\p{N}_\p{Pd}\p{Emoji}\p{P} ]+(\/[\p{L}\p{N}_\p{Pd}\p{Emoji}\p{P} ]+)*(\.[\p{L}\p{N}_\p{Pd}\p{Emoji}\p{P}]+)?$/u;
 	private static templaterExpression = /<%.*%>/
 	private static wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
 

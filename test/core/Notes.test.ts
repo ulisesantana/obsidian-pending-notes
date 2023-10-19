@@ -155,5 +155,48 @@ describe('Notes should', () => {
 				}
 			])
 		});
+
+		it('handling apostrophes', async () => {
+			const pending = await Notes.getPendingToCreate([
+				{
+					"name": "Test",
+					"content": Promise.resolve("This should recognize one [[notes/Pending note]]. Because [[Pending note]] another [[notes/Pending note.md]]. Check [[Fulano's legend]]"),
+					"extension":"md",
+					"path":"notes/Test.md",
+				},
+				{
+					"name": "Pending note",
+					"content": Promise.resolve("Is note that is [[Outlinks|linked]], but not created yet. Also, you can check [[notes/Ambrosio's legend]]"),
+					"extension":"md",
+					"path":"notes/Pending note.md",
+				},
+				{
+					"name": "Ambrosio's legend",
+					"content": Promise.resolve("Ambrosio was an exceptional man. He can enter into a bar and keep quiet hearing cuñaos talking about solving the world."),
+					"extension":"md",
+					"path":"notes/Ambrosio's legend.md",
+				},
+				{
+					"name": "Fulano's legend",
+					"content": Promise.resolve("Fulano was an exceptional man. Much more than [[notes/Mengano's story]] and [[Rodolfo's story]]"),
+					"extension":"md",
+					"path":"notes/Fulano's legend.md",
+				},
+			])
+			expect(pending).toEqual([
+				{
+					"timesLinked": 1,
+					"title": "notes/Mengano's story"
+				},
+				{
+					"timesLinked": 1,
+					"title": "Outlinks"
+				},
+				{
+					"timesLinked": 1,
+					"title": "Rodolfo's story"
+				}
+			])
+		});
 	});
 });
