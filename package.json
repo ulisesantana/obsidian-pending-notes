@@ -8,7 +8,7 @@
 		"deploy": "npm clean-install --omit=dev && npm run build",
 		"dev": "node esbuild.config.mjs",
 		"lint": "eslint . --ext .ts",
-    "lint:fix": "npm run lint -- --fix",
+    	"lint:fix": "npm run lint -- --fix",
 		"tag": "node version-bump.mjs && TAG=$(node -pe \"require('./package.json').version\"); git commit -am \"🔖 $TAG\" && git tag $TAG && git push --tags",
 		"test": "jest --verbose --coverage",
 		"test:all": "npm t && npm run test:deploy",
