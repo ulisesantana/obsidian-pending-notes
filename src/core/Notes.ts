@@ -19,7 +19,8 @@ export class Notes {
 	private static templaterExpression = /<%.*%>/
 	private static wikiLinksExpression = /(?:[^!]|^)\[\[(.+?)]]/g
 
-	static async getPendingToCreate(notes: Note[]): Promise<NotePendingToBeCreated[]> {
+	static async getPendingToCreate(inputNotes: Note[], excludedDirectories: string[] = []): Promise<NotePendingToBeCreated[]> {
+		const notes = Notes.getNotesWithoutExcludedDirectories(inputNotes, excludedDirectories)
 		const links = await Notes.getOutlinks(notes);
 		const [allNotes, allPaths, allExtensions] = Notes.getUniqueData(notes)
 		const missingNotes = {} as Record<string, number>
@@ -34,14 +35,24 @@ export class Notes {
 			}
 		}
 		return Object.entries(missingNotes)
-			.reduce<NotePendingToBeCreated[]>((notes, [title, timesLinked]) => {
+			.reduce<NotePendingToBeCreated[]>((notesPendingToCreate, [title, timesLinked]) => {
 				if (Boolean(title) && Notes.hasFileExtension(title)) {
-					return notes.concat({title, timesLinked})
+					return notesPendingToCreate.concat({title, timesLinked})
 				}
-				return notes
+				return notesPendingToCreate
 			}, [])
 			.sort(Notes.sortByTitle)
 			.sort(Notes.sortByTimesLinked)
+	}
+
+	/**
+	 * Filters out notes that are in excluded directories.
+	 * @param notes - The input notes to filter.
+	 * @param excludedDirectories - The directories to exclude.
+	 * @returns Filtered notes that are not in the excluded directories.
+	 */
+	private static getNotesWithoutExcludedDirectories(notes: Note[], excludedDirectories: string[]) {
+		return notes.filter(note => !excludedDirectories.some(excluded => note.path.startsWith(excluded)));
 	}
 
 	private static getUniqueData(notes: Note[]): [Set<Note['name']>, Set<Note['path']>, Set<Note['extension']>] {

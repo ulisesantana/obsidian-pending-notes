@@ -72,6 +72,28 @@ describe('Notes should', () => {
 			])
 		});
 
+		it('skipping excluded folders', async () => {
+			const excludedFolders = ['notes/excluded'];
+			const pending = await Notes.getPendingToCreate([
+				{
+					"name": "Test",
+					"content": Promise.resolve("The [[ignore link]] because it is in an excluded"),
+					"extension":"md",
+					"path":`${excludedFolders[0]}/Test.md`,
+				},
+				{
+					"name": "Test",
+					"content": Promise.resolve("The [[working link]] because it is in an excluded"),
+					"extension":"md",
+					"path":`mocs/${excludedFolders[0]}/Test.md`,
+				},
+			], excludedFolders)
+			expect(pending).toEqual([{
+				timesLinked: 1,
+				title: "working link"
+			}])
+		});
+
 		it('skipping links with templater characters', async () => {
 			const pending = await Notes.getPendingToCreate([
 				{

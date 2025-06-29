@@ -71,7 +71,9 @@ export class MainView extends ItemView {
 
 	private async getPendingNotes(): Promise<NotePendingToBeCreated[]> {
 		const notes = this.app.vault.getMarkdownFiles().map(f => this.readNote(f))
-		return Notes.getPendingToCreate(notes)
+		// @ts-ignore
+		const excludedDirectories = app.vault?.config?.userIgnoreFilters || [];
+		return Notes.getPendingToCreate(notes, excludedDirectories);
 	}
 
 	private readNote(file: TFile): Note {
