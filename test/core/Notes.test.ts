@@ -231,7 +231,11 @@ describe('Notes should', () => {
 				},
 				{
 					"name": "Test",
-					"content": Promise.resolve("| - |\n| [[000 this note already exists\|0]] |"),
+					"content": Promise.resolve(`
+| - |  
+| - |  
+| [[000 this note already exists\\|0]] |
+`),
 					"extension":"md",
 					"path":"notes/Test.md",
 				},
