@@ -220,5 +220,27 @@ describe('Notes should', () => {
 				}
 			])
 		});
+
+		it('handling escaped pipe in aliases', async () => {
+			const pending = await Notes.getPendingToCreate([
+				{
+					"name": "000 this note already exists",
+					"content": Promise.resolve("This note exists and should not be marked as pending."),
+					"extension":"md",
+					"path":"notes/000 this note already exists.md",
+				},
+				{
+					"name": "Test",
+					"content": Promise.resolve(`
+| - |  
+| - |  
+| [[000 this note already exists\\|0]] |
+`),
+					"extension":"md",
+					"path":"notes/Test.md",
+				},
+			])
+			expect(pending).toEqual([])
+		});
 	});
 });

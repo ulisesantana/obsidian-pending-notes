@@ -112,7 +112,7 @@ export class Notes {
 		return Array.from(note.content.matchAll(Notes.wikiLinksExpression))
 			.flatMap(([_, x]) => x)
 			.reduce<string[]>(function reduceNoteTitles(outlinks, outlink) {
-				const title = outlink.split(/[#|]/g)[0]?.trim()
+				const title = outlink.split(/[#|]/g)[0]?.trim().replaceAll('\\', '');
 				if (Notes.templaterExpression.test(title)) {
 					return outlinks
 				}
